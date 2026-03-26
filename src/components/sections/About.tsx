@@ -5,26 +5,30 @@ import { useInView } from "react-intersection-observer";
 import { Briefcase, Code2, Smartphone, Users, Download, Rocket, Layers, Award, MapPin } from "lucide-react";
 import { STATS, TIMELINE, PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
+import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/ui/FadeInStagger";
+import { useCountUp } from "@/hooks/useCountUp";
 
-const StatCard = ({ stat, index }: { stat: any, index: number }) => {
+const StatCard = ({ stat }: { stat: any }) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const icons: any = { Briefcase, Code2, Smartphone, Users };
   const Icon = icons[stat.icon];
 
+  const numericEnd = parseInt(stat.value.replace(/[^0-9]/g, "")) || 0;
+  const suffix = stat.value.replace(/[0-9]/g, "");
+  const count = useCountUp(numericEnd, 2000, inView);
+  const displayValue = `${count}${suffix}`;
+
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -10 }}
-      className="glass glass-hover p-6 rounded-3xl flex flex-col items-center gap-2 group relative overflow-hidden text-center"
+      className="glass glass-hover p-6 rounded-3xl flex flex-col items-center gap-2 group relative overflow-hidden text-center h-full"
     >
       <div className={`w-12 h-12 rounded-2xl bg-${stat.color}-500/20 flex items-center justify-center mb-2 transition-transform group-hover:scale-110`}>
         <Icon className={`w-6 h-6 text-${stat.color}-400`} />
       </div>
       <div className="text-3xl font-bold text-white group-hover:text-primary transition-colors">
-        {stat.value}
+        {displayValue}
       </div>
       <div className="text-xs font-medium text-content-secondary uppercase tracking-widest">{stat.label}</div>
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -32,17 +36,12 @@ const StatCard = ({ stat, index }: { stat: any, index: number }) => {
   );
 };
 
-const TimelineCard = ({ item, index }: { item: any, index: number }) => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
+const TimelineCard = ({ item, index }: { item: any; index: number }) => {
   const icons: any = { Rocket, Smartphone, Layers, Award };
   const Icon = icons[item.icon];
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+    <div
       className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-center ${
         index % 2 === 0 ? "" : "md:rtl"
       }`}
@@ -50,7 +49,7 @@ const TimelineCard = ({ item, index }: { item: any, index: number }) => {
       {/* Icon/Year Circle */}
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 h-full w-0.5 bg-gradient-to-b from-primary via-secondary to-accent z-0" />
       <div className="absolute left-1/2 -translate-x-1/2 top-0 w-12 h-12 rounded-full bg-surface border-4 border-background flex items-center justify-center z-10 hidden md:flex glow-primary">
-         <span className="text-[10px] font-bold text-white">{item.year}</span>
+        <span className="text-[10px] font-bold text-white">{item.year}</span>
       </div>
 
       <div className={`glass p-8 rounded-3xl relative z-10 transition-all hover:scale-[1.02] ${index % 2 === 0 ? "md:text-left" : "md:text-right md:ltr text-left"}`}>
@@ -62,61 +61,47 @@ const TimelineCard = ({ item, index }: { item: any, index: number }) => {
         <p className="text-content-secondary text-sm leading-relaxed">{item.description}</p>
       </div>
       <div />
-    </motion.div>
+    </div>
   );
 };
 
 const About = () => {
   return (
     <section id="about" className="py-24 px-6 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+      <FadeInStaggerContainer className="max-w-7xl mx-auto">
         {/* Section Heading */}
-        <div className="flex flex-col items-center text-center gap-4 mb-20">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-gradient"
-          >
+        <FadeInStaggerItem className="flex flex-col items-center text-center gap-4 mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-gradient">
             About Me
-          </motion.h2>
-          <motion.div 
-            initial={{ width: 0 }}
-            whileInView={{ width: 80 }}
-            viewport={{ once: true }}
-            className="h-1.5 bg-gradient-to-r from-primary to-secondary rounded-full"
-          />
-        </div>
+          </h2>
+          <div className="h-1.5 w-20 bg-gradient-to-r from-primary to-secondary rounded-full" />
+        </FadeInStaggerItem>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
-          {STATS.map((stat, i) => (
-            <StatCard key={stat.id} stat={stat} index={i} />
+          {STATS.map((stat) => (
+            <FadeInStaggerItem key={stat.id}>
+              <StatCard stat={stat} />
+            </FadeInStaggerItem>
           ))}
         </div>
 
         {/* Bio & Avatar */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col gap-6"
-          >
+          <FadeInStaggerItem className="flex flex-col gap-6">
             <h3 className="text-3xl font-bold text-white">
               Passionate & Multi-disciplinary <br />
               <span className="text-primary">Developer based in Bangladesh</span>
             </h3>
             <div className="flex flex-col gap-4 text-content-secondary leading-relaxed">
               <p>
-                I am a dedicated Full Stack Web & Mobile App Developer with over 3 years of experience in crafting high-quality digital solutions. My journey started with a fascination for how things work on the internet, which quickly evolved into a professional career building complex applications.
+                I am a dedicated Frontend Developer with over 3 years of experience crafting fast, accessible, and beautiful digital solutions. My journey started with a fascination for crafting interactive interfaces, which evolved into a professional career specializing in UI/UX engineering.
               </p>
               <p>
-                Specializing in modern frameworks like Next.js and Flutter, I focus on creating seamless user experiences that are both visually stunning and performant. I believe in writing clean, maintainable code and staying ahead of the curve with emerging technologies.
+                Specializing in modern frameworks like React and Next.js, I focus on creating immersive experiences that consistently score 90+ on Lighthouse and prioritize Core Web Vitals. I believe in clean code, seamless animations, and building software that feels alive to the user.
               </p>
               <p>
-                When I&apos;m not coding, you can find me exploring new design trends, contributing to open-source projects, or sharing my knowledge through technical blog posts.
+                When I&apos;m not coding, you can find me exploring new UI design trends, optimizing performance bottlenecks, or building open-source frontend components.
               </p>
             </div>
             
@@ -129,15 +114,9 @@ const About = () => {
               <Download className="w-5 h-5 mr-2" />
               Download CV
             </Button>
-          </motion.div>
+          </FadeInStaggerItem>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
+          <FadeInStaggerItem className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden glass border-2 border-primary/20 p-4 relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-50 group-hover:opacity-100 transition-opacity" />
               <img 
@@ -162,22 +141,25 @@ const About = () => {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </FadeInStaggerItem>
         </div>
 
         {/* Journey Timeline */}
         <div className="relative">
-           <div className="flex flex-col items-center text-center gap-4 mb-16">
+           <FadeInStaggerItem className="flex flex-col items-center text-center gap-4 mb-16">
             <h3 className="text-3xl font-bold text-white tracking-tight">Professional Journey</h3>
             <p className="text-content-secondary max-w-lg">A chronological look at my evolution as a developer and the milestones I&apos;ve achieved.</p>
-          </div>
+          </FadeInStaggerItem>
+          
           <div className="relative pt-8">
             {TIMELINE.map((item, i) => (
-              <TimelineCard key={item.id} item={item} index={i} />
+              <FadeInStaggerItem key={item.id}>
+                <TimelineCard item={item} index={i} />
+              </FadeInStaggerItem>
             ))}
           </div>
         </div>
-      </div>
+      </FadeInStaggerContainer>
     </section>
   );
 };

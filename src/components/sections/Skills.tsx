@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 
 const SkillBubbles = dynamic(() => import("@/components/3d/SkillBubbles"), { ssr: false });
 
+import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/ui/FadeInStagger";
+
 const SkillItem = ({ skill, index, color }: { skill: any, index: number, color: string }) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
@@ -24,7 +26,7 @@ const SkillItem = ({ skill, index, color }: { skill: any, index: number, color: 
         <motion.div
           initial={{ width: 0 }}
           animate={inView ? { width: `${skill.percentage}%` } : {}}
-          transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
+          transition={{ duration: 1.2, delay: index * 0.1, ease: "easeOut" }}
           className={cn(
              "h-full rounded-full bg-gradient-to-r",
              color === "blue" && "from-blue-500 to-cyan-500",
@@ -38,15 +40,9 @@ const SkillItem = ({ skill, index, color }: { skill: any, index: number, color: 
   );
 };
 
-const SkillCard = ({ category, index }: { category: any, index: number }) => {
+const SkillCard = ({ category }: { category: any }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="glass p-8 rounded-3xl border border-white/10 group hover:border-primary/30 transition-all duration-300 shadow-xl"
-    >
+    <FadeInStaggerItem className="glass p-8 rounded-3xl border border-white/10 group hover:border-primary/30 transition-all duration-300 shadow-xl">
       <h4 className={cn(
         "text-xl font-bold mb-8 flex items-center gap-4 text-gradient bg-gradient-to-r",
         category.gradient
@@ -59,7 +55,7 @@ const SkillCard = ({ category, index }: { category: any, index: number }) => {
           <SkillItem key={skill.name} skill={skill} index={i} color={category.color} />
         ))}
       </div>
-    </motion.div>
+    </FadeInStaggerItem>
   );
 };
 
@@ -105,7 +101,7 @@ const Skills = () => {
             {/* Skills Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-fit">
               {SKILLS.map((category, i) => (
-                <SkillCard key={category.id} category={category} index={i} />
+                <SkillCard key={category.id} category={category} />
               ))}
             </div>
         </div>

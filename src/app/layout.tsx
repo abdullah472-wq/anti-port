@@ -8,6 +8,8 @@ import BackToTop from "@/components/ui/BackToTop";
 import CommandPalette from "@/components/ui/CommandPalette";
 import MagneticCursor from "@/components/ui/MagneticCursor";
 
+import SmoothScroll from "@/components/ui/SmoothScroll";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -19,15 +21,16 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ABDULLAH | Mobile App & Full Stack Web Developer",
-  description: "I build powerful web & mobile experiences that make a difference. Specialized in Next.js, Flutter, and Full Stack development.",
+  title: "Abdullah | Frontend Developer | React & Next.js",
+  description: "Passionate frontend developer specializing in React, Next.js, and high-performance web experiences.",
+  keywords: ["frontend developer", "react developer", "nextjs", "bangladesh", "freelance"],
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "ABDULLAH",
-  "jobTitle": "Mobile App & Full Stack Web Developer",
+  "name": "Abdullah",
+  "jobTitle": "Frontend Developer",
   "url": "https://abdullah.dev",
   "address": {
     "@type": "PostalAddress",
@@ -57,6 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans scroll-smooth grid-bg`}>
+        <SmoothScroll />
         <ScrollProgress />
         <MagneticCursor />
         <CommandPalette />

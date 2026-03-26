@@ -13,7 +13,7 @@ const Scene3D = dynamic(() => import("@/components/3d/Scene3D"), { ssr: false })
 const FloatingIcons = dynamic(() => import("@/components/3d/FloatingIcons"), { ssr: false });
 const Avatar3D = dynamic(() => import("@/components/3d/Avatar3D"), { ssr: false });
 import HologramPortal from "@/components/3d/HologramPortal";
-import TypewriterText from "@/components/ui/TypewriterText";
+import { TypeAnimation } from "react-type-animation";
 
 const Hero = () => {
   return (
@@ -39,7 +39,7 @@ const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Welcome to my portfolio
+            Accessibility First - WCAG Compliant
           </motion.div>
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
@@ -47,13 +47,28 @@ const Hero = () => {
             <span className="text-gradient drop-shadow-sm">{PERSONAL_INFO.name}</span>
           </h1>
 
-          <h2 className="text-xl md:text-2xl font-medium text-content-secondary min-h-[32px]">
-            <TypewriterText text={PERSONAL_INFO.title} delay={0.5} />
+          <h2 className="text-xl md:text-2xl font-medium text-primary min-h-[32px]">
+            <TypeAnimation
+              sequence={[
+                "Frontend Developer", 2000,
+                "UI/UX Enthusiast", 2000,
+                "Performance Optimizer", 2000,
+                "React & Next.js Expert", 2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
           </h2>
 
-          <p className="text-lg text-content-secondary max-w-lg leading-relaxed min-h-[84px]">
-            <TypewriterText text={PERSONAL_INFO.tagline} delay={1.5} />
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="text-lg text-content-secondary max-w-lg leading-relaxed min-h-[84px]"
+          >
+            {PERSONAL_INFO.tagline}
+          </motion.p>
 
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <MagneticButton distance={0.2}>

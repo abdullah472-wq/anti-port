@@ -44,6 +44,9 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
+  lighthouseScore?: number;
+  loadTime?: string;
+  mobileResponsive?: boolean;
 }
 
 export interface BlogPost {

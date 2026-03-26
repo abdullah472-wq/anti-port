@@ -10,14 +10,14 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2 md:gap-4 group w-fit">
-              <img 
-                src="/COD_BOT.png" 
-                alt="Logo" 
+              <img
+                src="/COD_BOT.png"
+                alt="Logo"
                 className="w-10 h-10 md:w-16 md:h-16 object-contain"
               />
-              <img 
-                src="/animation/COD_BOT.gif" 
-                alt="COD_BOT" 
+              <img
+                src="/animation/COD_BOT.gif"
+                alt="COD_BOT"
                 className="h-8 md:h-12 object-contain mix-blend-multiply hidden sm:block"
               />
             </Link>
@@ -89,7 +89,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-content-secondary">
-          <p>© 2024 {PERSONAL_INFO.name}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.</p>
         </div>
       </div>
     </footer>

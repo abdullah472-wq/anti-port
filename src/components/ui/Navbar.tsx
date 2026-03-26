@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Code2, Menu, X, Search } from "lucide-react";
 import { NAV_ITEMS, PERSONAL_INFO } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -13,15 +13,16 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSegment, setActiveSegment] = useState("Home");
   const [isMounted, setIsMounted] = useState(false);
+  
+  const { scrollY } = useScroll();
 
   useEffect(() => {
     setIsMounted(true);
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   // Close menu on resize
   useEffect(() => {
@@ -36,7 +37,7 @@ const Navbar = () => {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
-        isMounted && (isScrolled || isMenuOpen) ? "bg-dark-bg/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
+        isMounted && (isScrolled || isMenuOpen) ? "bg-black/60 backdrop-blur-[12px] border-b border-white/10" : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
