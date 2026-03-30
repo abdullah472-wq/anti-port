@@ -9,6 +9,7 @@ import FixedSidebar from "@/components/ui/FixedSidebar";
 import MobileFloatingNav from "@/components/ui/MobileFloatingNav";
 import MobileHeader from "@/components/ui/MobileHeader";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import IntroScreen from "@/components/ui/IntroScreen";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -67,7 +68,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${orbitron.variable} ${exo2.variable} ${jetbrainsMono.variable} font-body scroll-smooth grid-bg`}>
+      <body suppressHydrationWarning className={`${orbitron.variable} ${exo2.variable} ${jetbrainsMono.variable} font-body scroll-smooth grid-bg`}>
+        <IntroScreen />
         <SmoothScroll />
         <ScrollProgress />
         <MagneticCursor />

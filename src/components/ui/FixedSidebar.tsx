@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { Github, Linkedin, Facebook, Send, Download, Zap, ChevronRight } from "lucide-react";
+import { Github, Facebook, MessageCircle, Send, Phone, Download, Zap, ChevronRight } from "lucide-react";
 import { PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
@@ -91,6 +91,7 @@ export default function FixedSidebar() {
   return (
     <div 
       className="hidden lg:flex fixed left-0 top-0 w-[35%] h-screen z-40"
+      style={{ fontFamily: "var(--font-exo2), ui-sans-serif, system-ui" }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -177,7 +178,10 @@ export default function FixedSidebar() {
                 >
                   <Zap className="w-4 h-4" />
                 </motion.div>
-                <span className="text-xs font-heading font-medium tracking-wide">
+                <span 
+                  className="text-xs font-medium tracking-wide"
+                  style={{ fontFamily: "var(--font-orbitron), ui-sans-serif, system-ui" }}
+                >
                   {isScrolling ? "STOP" : "AUTO"}
                 </span>
               </div>
@@ -190,15 +194,19 @@ export default function FixedSidebar() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-4 pt-6"
+            className="space-y-8 pt-8"
           >
             {/* Name */}
             <div className="space-y-2">
-              <h3 className="text-sm font-body text-content-secondary/70 tracking-wide">
+              <h2 
+                className="text-base md:text-lg text-content-secondary/70 tracking-wide"
+                style={{ fontFamily: "var(--font-exo2), ui-sans-serif, system-ui" }}
+              >
                 Hi, I am
-              </h3>
+              </h2>
               <motion.h1 
-                className="text-6xl font-heading font-black text-white tracking-tight leading-none"
+                className="text-6xl font-black text-white tracking-tight leading-none"
+                style={{ fontFamily: "var(--font-orbitron), ui-sans-serif, system-ui", fontWeight: 900 }}
                 animate={{ 
                   textShadow: isHovering 
                     ? "0 0 30px rgba(99,102,241,0.5), 0 0 60px rgba(139,92,246,0.3)" 
@@ -223,7 +231,10 @@ export default function FixedSidebar() {
             {/* Role */}
             <div className="flex items-center gap-2">
               <div className="h-px w-8 bg-gradient-to-r from-primary to-transparent" />
-              <span className="text-xs font-heading uppercase tracking-[0.25em] text-primary/90">
+              <span 
+                className="text-xs uppercase tracking-[0.25em] text-primary/90"
+                style={{ fontFamily: "var(--font-orbitron), ui-sans-serif, system-ui" }}
+              >
                 Frontend Developer
               </span>
             </div>
@@ -236,7 +247,7 @@ export default function FixedSidebar() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="space-y-6"
+            className="space-y-6 pt-12"
           >
             {/* CTA Buttons */}
             <div className="flex gap-3">
@@ -255,17 +266,17 @@ export default function FixedSidebar() {
 
             {/* Social Icons */}
             <div className="flex items-center gap-2">
-              {[
-                { icon: Github, href: PERSONAL_INFO.github, name: "GitHub" },
-                { icon: Linkedin, href: PERSONAL_INFO.linkedin, name: "LinkedIn" },
-                { icon: Facebook, href: PERSONAL_INFO.facebook, name: "Facebook" },
-                { icon: Send, href: PERSONAL_INFO.telegram, name: "Telegram" },
+              {[{ icon: Github, href: "https://github.com/abdullah472-wq", name: "Github" },
+                { icon: Facebook, href: "https://www.facebook.com/share/18BSa9YpyK/", name: "Facebook" },
+                { icon: MessageCircle, href: "https://wa.me/qr/UISCUDK47N3QL1", name: "WhatsApp" },
+                { icon: Send, href: "https://t.me/abdullahbd427", name: "Telegram" },
+                { icon: Phone, href: "tel:01581818368", name: "Call" },
               ].map((social, i) => (
                 <motion.a
                   key={social.name}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={social.name === "Call" ? undefined : "_blank"}
+                  rel={social.name === "Call" ? undefined : "noopener noreferrer"}
                   title={social.name}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -282,7 +293,7 @@ export default function FixedSidebar() {
             {/* Location */}
             <div className="flex items-center gap-2 text-xs font-body text-content-secondary/50">
               <div className="w-1 h-1 rounded-full bg-content-secondary/50" />
-              <span>Gazipur, Bangladesh</span>
+              <span>Gazipur, Dhaka, Bangladesh</span>
             </div>
 
             {/* Copyright */}

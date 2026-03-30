@@ -6,6 +6,8 @@ import Link from "next/link";
 import Button from "@/components/ui/Button";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const TITLES = [
   "Frontend Developer",
@@ -14,10 +16,36 @@ const TITLES = [
   "Performance Focused",
 ];
 
+interface StatItemProps {
+  end: number;
+  suffix: string;
+  label: string;
+  visible: boolean;
+}
+
+const StatItem = ({ end, suffix, label, visible }: StatItemProps) => {
+  const count = useCountUp(end, 2000, visible);
+  return (
+    <div className="text-center">
+      <div className="text-3xl font-heading font-bold text-white neon-text-primary">
+        {count}{suffix}
+      </div>
+      <div className="text-xs font-body text-content-secondary uppercase tracking-wider mt-1">{label}</div>
+    </div>
+  );
+};
+
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
+
+  const stats = [
+    { end: 3, suffix: "+", label: "Years Exp." },
+    { end: 50, suffix: "+", label: "Projects" },
+    { end: 30, suffix: "+", label: "Clients" },
+  ];
 
   useEffect(() => {
     const currentText = TITLES[currentIndex];
@@ -101,20 +129,14 @@ const Hero = () => {
 
         {/* Stats */}
         <motion.div
+          ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="flex items-center gap-12 pt-12 mt-12 border-t border-white/10"
         >
-          {[
-            { value: "3+", label: "Years Exp." },
-            { value: "50+", label: "Projects" },
-            { value: "30+", label: "Clients" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-3xl font-heading font-bold text-white neon-text-primary">{stat.value}</div>
-              <div className="text-xs font-body text-content-secondary uppercase tracking-wider mt-1">{stat.label}</div>
-            </div>
+          {stats.map((stat, i) => (
+            <StatItem key={i} end={stat.end} suffix={stat.suffix} label={stat.label} visible={inView} />
           ))}
         </motion.div>
       </div>

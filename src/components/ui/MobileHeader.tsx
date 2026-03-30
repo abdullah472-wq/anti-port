@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Facebook, Send, Download, Zap, ChevronRight, Phone } from "lucide-react";
+import { Github, Facebook, MessageCircle, Send, Download, Zap, ChevronRight, Phone } from "lucide-react";
 import { PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
@@ -77,7 +77,7 @@ export default function MobileHeader() {
       {/* Mobile Header Banner - Shows/Hides on scroll */}
       <motion.div
         initial={{ y: 0 }}
-        animate={{ y: showMenu ? 0 : -150 }}
+        animate={{ y: showMenu ? 0 : -120 }}
         transition={{ duration: 0.3 }}
         className="lg:hidden fixed top-0 left-0 right-0 z-40"
       >
@@ -134,19 +134,22 @@ export default function MobileHeader() {
           opacity: showMenu ? 1 : 0
         }}
         transition={{ duration: 0.3 }}
-        className="lg:hidden fixed top-[60px] left-0 right-0 z-30 overflow-hidden"
+        className="lg:hidden fixed top-[56px] left-0 right-0 z-30 overflow-hidden"
       >
         <div className="bg-gradient-to-br from-dark-bg/98 via-dark-bg/95 to-surface/40 backdrop-blur-2xl border-b border-white/5">
           <div className="px-4 py-4 space-y-4">
             {/* Name & Tagline */}
             <div className="space-y-1">
-              <h1 className="text-2xl font-heading font-black text-white">
+              <h1 
+                className="text-2xl font-black text-white"
+                style={{ fontFamily: "var(--font-orbitron), ui-sans-serif, system-ui" }}
+              >
                 <span className="text-gradient bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text">
                   {PERSONAL_INFO.name}
                 </span>
               </h1>
               <p className="text-xs text-content-secondary/80">
-                Crafting pixel-perfect, performant web experiences
+                Building the future of web interfaces
               </p>
             </div>
 
@@ -165,11 +168,11 @@ export default function MobileHeader() {
             {/* Social Icons */}
             <div className="flex items-center gap-2">
               {[
-                { icon: Github, href: PERSONAL_INFO.github },
-                { icon: Linkedin, href: PERSONAL_INFO.linkedin },
-                { icon: Facebook, href: PERSONAL_INFO.facebook },
-                { icon: Send, href: PERSONAL_INFO.telegram },
-                { icon: Phone, href: "https://wa.me/8801312200043" },
+                { icon: Github, href: "https://github.com/abdullah472-wq", name: "Github" },
+                { icon: Facebook, href: "https://www.facebook.com/share/18BSa9YpyK/", name: "Facebook" },
+                { icon: MessageCircle, href: "https://wa.me/qr/UISCUDK47N3QL1", name: "WhatsApp" },
+                { icon: Send, href: "https://t.me/abdullahbd427", name: "Telegram" },
+                { icon: Phone, href: "tel:01581818368", name: "Call" },
               ].map((social, i) => (
                 <motion.a
                   key={i}

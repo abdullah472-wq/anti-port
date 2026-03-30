@@ -18,14 +18,18 @@ const HolographicTimeline = () => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-20"
+        className="text-center mb-20 px-4 sm:px-0"
       >
         <span className="text-xs text-primary uppercase tracking-[0.3em] font-medium">
           Professional Evolution
         </span>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mt-4">
-          My Growth as a <span className="text-gradient">Frontend Dev</span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 leading-tight max-w-2xl mx-auto">
+          <span className="block">My Growth as a</span>
+          <span className="text-gradient block md:inline">Frontend Dev</span>
         </h2>
+        <p className="mt-3 text-sm md:text-base text-content-secondary max-w-xl mx-auto">
+          A mobile-first timeline that highlights progress, milestones, and the journey of a frontend developer.
+        </p>
         <div className="w-20 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-6" />
       </motion.div>
 

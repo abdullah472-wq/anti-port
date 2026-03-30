@@ -65,7 +65,7 @@ const HolographicTimelineItem = ({ item, index }: { item: any; index: number }) 
             initial={{ opacity: 0, scale: 0 }}
             animate={isCardInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.3, type: "spring" }}
-            className="absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary/20 border border-primary/30 rounded-full text-[10px] font-bold text-primary uppercase tracking-wider"
+            className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary/20 border border-primary/30 rounded-full text-[10px] font-bold text-primary uppercase tracking-wider whitespace-nowrap"
           >
             {item.year}
           </motion.div>
@@ -216,13 +216,17 @@ const About = () => {
 
         {/* Holographic Timeline */}
         <FadeInStaggerItem className="mt-32">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 px-4 sm:px-0">
             <span className="text-xs text-primary uppercase tracking-[0.3em] font-medium">
               Professional Evolution
             </span>
-            <h3 className="text-3xl font-bold text-white mt-4">
-              My Growth as a <span className="text-gradient">Frontend Dev</span>
+            <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mt-4 leading-tight max-w-2xl mx-auto">
+              <span className="block">My Growth as a</span>
+              <span className="text-gradient block md:inline">Frontend Dev</span>
             </h3>
+            <p className="mt-3 text-sm md:text-base text-content-secondary max-w-xl mx-auto">
+              A mobile-first timeline that highlights progress, milestones, and the journey of a frontend developer.
+            </p>
             <div className="w-20 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-6" />
           </div>
 
