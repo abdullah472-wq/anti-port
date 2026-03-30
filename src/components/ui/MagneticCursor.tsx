@@ -6,21 +6,22 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 export default function MagneticCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth outer ring
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  // Faster inner dot
   const dotSpringConfig = { damping: 20, stiffness: 400, mass: 0.1 };
   const dotX = useSpring(mouseX, dotSpringConfig);
   const dotY = useSpring(mouseY, dotSpringConfig);
 
   useEffect(() => {
+    setIsTouch("ontouchstart" in window);
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -57,7 +58,7 @@ export default function MagneticCursor() {
     };
   }, [mouseX, mouseY, isVisible]);
 
-  if (typeof window !== "undefined" && "ontouchstart" in window) return null;
+  if (isTouch) return null;
 
   return (
     <>

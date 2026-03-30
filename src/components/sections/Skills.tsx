@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import dynamic from "next/dynamic";
 import { SKILLS } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import { Canvas } from "@react-three/fiber";
 
 const SkillBubbles = dynamic(() => import("@/components/3d/SkillBubbles"), { ssr: false });
 
@@ -85,16 +86,14 @@ const Skills = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* 3D Skill Visualization (Hidden on Mobile) */}
+            {/* 3D Skill Visualization */}
             <div className="hidden lg:block h-[500px] w-full relative">
-                 {/* This would be integrated better in a real app, 
-                     but we'll show it as a focal point here */}
-                 <div className="absolute inset-0 z-0 opacity-80">
-                    {/* Scene content is handled globally or through a local canvas */}
-                    {/* For this demo, we'll assume a local canvas or a placeholder */}
-                    <div className="w-full h-full flex items-center justify-center glass rounded-3xl animate-float-slow">
-                        <p className="text-primary font-bold uppercase tracking-widest text-sm">Interactive 3D Skill Spheres</p>
-                    </div>
+                 <div className="absolute inset-0 z-0">
+                    <Canvas camera={{ position: [0, 0, 8] }}>
+                      <ambientLight intensity={0.5} />
+                      <pointLight position={[10, 10, 10]} />
+                      <SkillBubbles />
+                    </Canvas>
                  </div>
             </div>
 

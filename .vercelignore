@@ -1,0 +1,10 @@
+# Ignore local artifacts and unnecessary upload files
+node_modules
+.next
+out
+build
+.vercel
+*.log
+dev_webpack.log
+dev_turbo_false.log
+.env*

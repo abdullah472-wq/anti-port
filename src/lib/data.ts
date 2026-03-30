@@ -9,7 +9,8 @@ export const PERSONAL_INFO = {
   location: "College Road, Kapasia-1730, Gazipur, Dhaka, Bangladesh",
   github: "https://github.com/abdullah472-wq",
   linkedin: "https://linkedin.com/in/abdullah",
-  facebook: "https://facebook.com",
+  facebook: "https://www.facebook.com/share/18BSa9YpyK/",
+  telegram: "https://t.me/abdullahbd427",
 };
 
 export const NAV_ITEMS: NavItem[] = [
@@ -24,15 +25,15 @@ export const NAV_ITEMS: NavItem[] = [
 export const STATS: Stat[] = [
   { id: "exp", label: "Years Experience", value: "3+", icon: "Briefcase", color: "blue" },
   { id: "projects", label: "Projects Completed", value: "50+", icon: "Code2", color: "green" },
-  { id: "mobile", label: "Mobile Apps Built", value: "20+", icon: "Smartphone", color: "purple" },
+  { id: "websites", label: "Websites Built", value: "30+", icon: "Globe", color: "purple" },
   { id: "clients", label: "Happy Clients", value: "30+", icon: "Users", color: "orange" },
 ];
 
 export const TIMELINE: TimelineItem[] = [
-  { id: "1", year: "2021", title: "The Journey Begins", description: "Started learning web development fundamentals (HTML, CSS, JS).", icon: "Rocket" },
-  { id: "2", year: "2022", title: "Mobile Dev Focus", description: "Mastered Flutter and Firebase for cross-platform app development.", icon: "Smartphone" },
-  { id: "3", year: "2023", title: "Full Stack Mastery", description: "Expanded to MERN stack and Next.js for scalable web apps.", icon: "Layers" },
-  { id: "4", year: "2024", title: "Senior Developer", description: "Leading projects and building complex, high-performance systems.", icon: "Award" },
+  { id: "1", year: "2021", title: "The Journey Begins", description: "Started learning web development fundamentals (HTML, CSS, JS) and fell in love with frontend.", icon: "Rocket" },
+  { id: "2", year: "2022", title: "React & Next.js", description: "Mastered React ecosystem and built dynamic web applications with modern frameworks.", icon: "Layers" },
+  { id: "3", year: "2023", title: "UI/UX Excellence", description: "Focused on creating pixel-perfect, accessible, and performant user interfaces.", icon: "Award" },
+  { id: "4", year: "2024", title: "Senior Frontend Dev", description: "Leading frontend projects with clean code, best practices, and high-performance solutions.", icon: "Award" },
 ];
 
 export const SKILLS: SkillCategory[] = [

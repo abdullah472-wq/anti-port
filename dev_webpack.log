@@ -1,0 +1,67 @@
+▲ Next.js 16.2.0 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.202:3000
+✓ Ready in 1847ms
+
+○ Compiling / ...
+ GET / 200 in 36.6s (next.js: 33.9s, application-code: 2.7s)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <RootLayout>
+                        <html lang="en" className="dark" suppressHydrationWarning={true}>
+                          <head>
+                          <body
+                            className="__variable_0a891c __variable_b5962e __variable_3c557b font-body scroll-smooth g..."
+-                           cz-shortcut-listen="true"
+-                           data-new-gr-c-s-check-loaded="14.1279.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+ 
+[browser] You are trying to animate backgroundColor from "rgba(0, 0, 0, 0)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+○ Compiling /_not-found ...
+ GET / 200 in 348ms (next.js: 100ms, application-code: 249ms)
+ GET /fonts/inter-bold.woff 404 in 10.2s (next.js: 7.7s, application-code: 2.6s)
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "transparent" to "rgba(99, 102, 241, 0.1)". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable
+[browser] You are trying to animate backgroundColor from "rgba(99, 102, 241, 0.1)" to "transparent". "transparent" is not an animatable value.. For more information and steps for solving, visit https://motion.dev/troubleshooting/value-not-animatable

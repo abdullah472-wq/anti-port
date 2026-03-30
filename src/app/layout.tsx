@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import { Orbitron, Exo_2 } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/Footer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import BackToTop from "@/components/ui/BackToTop";
 import CommandPalette from "@/components/ui/CommandPalette";
 import MagneticCursor from "@/components/ui/MagneticCursor";
-
+import FixedSidebar from "@/components/ui/FixedSidebar";
+import MobileFloatingNav from "@/components/ui/MobileFloatingNav";
+import MobileHeader from "@/components/ui/MobileHeader";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 
-const inter = Inter({
+const orbitron = Orbitron({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-orbitron",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const exo2 = Exo_2({
+  subsets: ["latin"],
+  variable: "--font-exo2",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -40,9 +47,10 @@ const jsonLd = {
     "addressCountry": "Bangladesh"
   },
   "sameAs": [
-    "https://github.com",
-    "https://linkedin.com",
-    "https://facebook.com"
+    "https://github.com/abdullah472-wq",
+    "https://linkedin.com/in/abdullah",
+    "https://www.facebook.com/share/18BSa9YpyK/",
+    "https://t.me/abdullahbd427"
   ]
 };
 
@@ -59,17 +67,28 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans scroll-smooth grid-bg`}>
+      <body className={`${orbitron.variable} ${exo2.variable} ${jetbrainsMono.variable} font-body scroll-smooth grid-bg`}>
         <SmoothScroll />
         <ScrollProgress />
         <MagneticCursor />
         <CommandPalette />
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <BackToTop />
+        
+        {/* Split Layout */}
+        <div className="flex min-h-screen">
+          {/* Fixed Sidebar - Desktop Only */}
+          <FixedSidebar />
+          
+          {/* Main Scrollable Content */}
+          <main className="flex-1 min-h-screen lg:ml-[35%] lg:pt-0 pt-[140px]">
+            {children}
+          </main>
+        </div>
+        
+        {/* Mobile Floating Nav */}
+        <MobileFloatingNav />
+        
+        {/* Mobile Header */}
+        <MobileHeader />
       </body>
     </html>
   );

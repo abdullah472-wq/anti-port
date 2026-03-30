@@ -18,7 +18,7 @@ const Footer = () => {
               <img
                 src="/animation/COD_BOT.gif"
                 alt="COD_BOT"
-                className="h-8 md:h-12 object-contain mix-blend-multiply hidden sm:block"
+                className="h-8 md:h-12 object-contain"
               />
             </Link>
             <p className="text-content-secondary text-sm leading-relaxed max-w-xs">
