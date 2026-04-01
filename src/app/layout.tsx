@@ -10,6 +10,7 @@ import MobileFloatingNav from "@/components/ui/MobileFloatingNav";
 import MobileHeader from "@/components/ui/MobileHeader";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import IntroScreen from "@/components/ui/IntroScreen";
+import BackToTop from "@/components/ui/BackToTop";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -91,6 +92,9 @@ export default function RootLayout({
         
         {/* Mobile Header */}
         <MobileHeader />
+        
+        {/* Back to Top Button */}
+        <BackToTop />
       </body>
     </html>
   );

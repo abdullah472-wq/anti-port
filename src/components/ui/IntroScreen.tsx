@@ -1,179 +1,321 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-const INTRO_STORAGE_KEY = "portfolioIntroPlayed";
+const INTRO_STORAGE_KEY = "portfolioIntroPlayed_v2";
 
-const IntroScreen = () => {
+interface IntroScreenProps {
+  onComplete?: () => void;
+}
+
+const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const [showIntro, setShowIntro] = useState(false);
   const [phase, setPhase] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
+  // Check localStorage and initialize
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const played = window.localStorage.getItem(INTRO_STORAGE_KEY) === "true";
     if (played) {
+      onComplete?.();
       return;
     }
 
     setShowIntro(true);
 
+    // Faster phase transitions for better UX
     const timers: number[] = [];
-    timers.push(window.setTimeout(() => setPhase(1), 180));
-    timers.push(window.setTimeout(() => setPhase(2), 920));
-    timers.push(window.setTimeout(() => setPhase(3), 1520));
-    timers.push(window.setTimeout(() => setPhase(4), 1980));
-    timers.push(
-      window.setTimeout(() => {
-        window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
-        setShowIntro(false);
-      }, 2800)
-    );
+    timers.push(window.setTimeout(() => setPhase(1), 100));   // Show title
+    timers.push(window.setTimeout(() => setPhase(2), 400));   // Show subtitle + scan line
+    timers.push(window.setTimeout(() => setPhase(3), 800));   // Prepare split
+    
+    if (!isMobile) {
+      // Desktop: split screen transition
+      timers.push(window.setTimeout(() => setPhase(4), 1200)); // Execute split
+      timers.push(
+        window.setTimeout(() => {
+          window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+          setShowIntro(false);
+          onComplete?.();
+        }, 2200)
+      );
+    } else {
+      // Mobile: auto-dismiss after 2.5 seconds
+      timers.push(
+        window.setTimeout(() => {
+          window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+          setShowIntro(false);
+          onComplete?.();
+        }, 2500)
+      );
+    }
 
     return () => timers.forEach(window.clearTimeout);
-  }, []);
+  }, [isMobile, onComplete]);
 
-  const skipIntro = () => {
-    window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+  const skipIntro = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+    }
     setShowIntro(false);
-  };
+    onComplete?.();
+  }, [onComplete]);
 
+  // Derived state
   const showTitle = phase >= 1;
   const showSubtitle = phase >= 2;
-  const showSplit = phase >= 3;
+  const showScanLine = phase >= 2;
+  const showSplit = phase >= 4 && !isMobile;
 
   if (!showIntro) return null;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[9999] overflow-hidden bg-[#050505] text-white"
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        onClick={skipIntro}
+        className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#050507] text-white cursor-pointer"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.14),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_30%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_70%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.02),rgba(255,255,255,0.02)_1px,transparent_2px,transparent_3px)] opacity-30 pointer-events-none" />
-
+        {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            initial={{ y: "-120%" }}
-            animate={showTitle ? { y: "110%" } : { y: "-120%" }}
-            transition={{ duration: 1.1, ease: "easeInOut" }}
-            className="absolute left-0 top-0 h-[1px] w-full bg-cyan-400/40 blur-sm"
+          {/* Radial gradients */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.1),transparent_30%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_70%)]" />
+          
+          {/* Grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: '60px 60px'
+            }}
           />
         </div>
 
-        <div className="relative z-10 flex h-full flex-col md:flex-row overflow-hidden">
+        {/* Scanning Line Effect */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-            initial={{ width: "100%" }}
-            animate={showSplit ? { width: ["100%", "40%"] } : { width: "100%" }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
-            className="flex min-h-screen flex-col justify-center px-6 py-10 md:px-14 md:py-16"
-          >
-            <div className="mx-auto w-full max-w-3xl">
-              <div className="flex items-center justify-between gap-4 mb-8">
-                <span className="text-[10px] uppercase tracking-[0.45em] text-cyan-300/70">
-                  INTRO
-                </span>
-                <button
-                  type="button"
-                  onClick={skipIntro}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-content-secondary transition hover:border-cyan-300/30 hover:text-white"
-                >
-                  Skip
-                </button>
-              </div>
+            initial={{ y: "-100%", opacity: 0 }}
+            animate={showScanLine ? { y: "100vh", opacity: [0, 0.6, 0] } : { opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_20px_rgba(56,189,248,0.8)]"
+          />
+          {/* Secondary scan glow */}
+          <motion.div
+            initial={{ y: "-100%", opacity: 0 }}
+            animate={showScanLine ? { y: "100vh", opacity: [0, 0.3, 0] } : { opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut", delay: 0.05 }}
+            className="absolute inset-x-0 h-[40px] bg-gradient-to-b from-cyan-400/20 via-cyan-400/5 to-transparent blur-xl"
+          />
+        </div>
 
-              <div className="relative overflow-hidden">
+        {/* Desktop Split-Screen Layout */}
+        {!isMobile && (
+          <div className="hidden md:flex w-full h-full max-w-7xl mx-auto">
+            {/* Left Panel - Becomes Fixed Sidebar */}
+            <motion.div
+              initial={{ width: "100%", x: 0 }}
+              animate={showSplit ? { width: "30%", x: 0 } : { width: "100%", x: 0 }}
+              transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              className="flex flex-col justify-center items-center relative z-10"
+            >
+              <div className="w-full max-w-md px-8">
+                {/* Header */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="flex items-center justify-between mb-10"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.4em] text-cyan-300/60">
+                    INITIALIZING
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      skipIntro();
+                    }}
+                    className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-content-secondary/80 transition hover:border-cyan-300/40 hover:text-white hover:bg-white/10"
+                  >
+                    Skip
+                  </button>
+                </motion.div>
+
+                {/* Hologram Name Reveal */}
+                <div className="relative">
+                  <motion.h1
+                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    animate={showTitle ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                    transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+                    className="text-[56px] lg:text-[72px] font-black uppercase tracking-[-0.04em] leading-[0.9]"
+                  >
+                    <span className="relative inline-flex">
+                      {/* Hologram glow behind */}
+                      <span className="absolute inset-0 text-cyan-400/30 blur-[3px] animate-pulse">
+                        Abdullah
+                      </span>
+                      <span className="relative bg-gradient-to-r from-cyan-300 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+                        Abdullah
+                      </span>
+                    </span>
+                  </motion.h1>
+
+                  {/* Scanned line effect on text */}
+                  <motion.div
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={showScanLine ? { scaleX: 1, opacity: [0, 1, 0] } : {}}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="absolute inset-x-0 top-1/2 h-[3px] bg-cyan-400/70 shadow-[0_0_30px_rgba(56,189,248,0.8)]"
+                    style={{ transformOrigin: "left" }}
+                  />
+                </div>
+
+                {/* Subtitle */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={showSubtitle ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                  className="mt-6"
+                >
+                  <div className="h-px w-16 bg-gradient-to-r from-cyan-400/60 to-transparent mb-4" />
+                  <p className="text-sm tracking-[0.15em] uppercase text-content-secondary/80">
+                    Frontend Developer
+                  </p>
+                </motion.div>
+
+                {/* Status indicator */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={showSplit ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5 }}
+                  className="mt-12 flex items-center gap-3 text-[11px] text-content-secondary/60"
+                >
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="uppercase tracking-[0.2em]">System Online</span>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Right Panel - Main Content Preview */}
+            <motion.div
+              initial={{ width: 0, opacity: 0, x: 50 }}
+              animate={showSplit ? { width: "70%", opacity: 1, x: 0 } : { width: 0, opacity: 0, x: 50 }}
+              transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              className="hidden md:flex flex-col justify-center border-l border-white/10 bg-white/[0.02] backdrop-blur-sm"
+            >
+              <div className="px-12 space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={showSplit ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  <h3 className="text-xs uppercase tracking-[0.3em] text-cyan-300/70 mb-2">Portfolio</h3>
+                  <p className="text-2xl font-light text-white/90">Welcome to my digital space</p>
+                </motion.div>
+
+                {/* Preview items */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={showSplit ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                  className="grid grid-cols-2 gap-3"
+                >
+                  {['Projects', 'Skills', 'Experience', 'Contact'].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-content-secondary/80"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Mobile Layout - Simplified */}
+        {isMobile && (
+          <div className="flex md:hidden flex-col items-center justify-center w-full px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-sm text-center relative"
+            >
+              {/* Skip button - subtle */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.6 }}
+                transition={{ delay: 1, duration: 0.3 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  skipIntro();
+                }}
+                className="absolute -top-20 right-0 text-[10px] uppercase tracking-[0.2em] text-white/40 transition hover:text-white/80"
+              >
+                Skip
+              </motion.button>
+
+              {/* Hologram Name */}
+              <div className="relative mb-6">
                 <motion.h1
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={showTitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="text-[42px] sm:text-[54px] md:text-[72px] lg:text-[84px] font-black uppercase tracking-[-0.05em] leading-[0.88] text-white"
+                  initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                  animate={showTitle ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="text-[42px] sm:text-[48px] font-black uppercase tracking-[-0.03em] leading-[0.95]"
                 >
                   <span className="relative inline-flex">
-                    <span className="absolute inset-0 text-cyan-300/20 blur-[1.5px]">
+                    <span className="absolute inset-0 text-cyan-400/25 blur-[2px]">
                       Abdullah
                     </span>
-                    <span className="relative bg-gradient-to-r from-cyan-300 via-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
+                    <span className="relative bg-gradient-to-r from-cyan-300 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
                       Abdullah
                     </span>
                   </span>
                 </motion.h1>
-
-                <motion.div
-                  animate={showTitle ? { opacity: [0, 0.18, 0.08], scale: [1, 1.015, 1] } : {}}
-                  transition={{ duration: 0.7, repeat: showSplit ? 0 : 1, repeatType: "mirror", ease: "easeInOut" }}
-                  className="pointer-events-none absolute inset-0"
-                >
-                  <div className="absolute -top-3 left-0 h-1/2 w-2/3 bg-cyan-300/20 blur-sm" />
-                  <div className="absolute top-1/2 left-1/4 h-[1px] w-2/3 bg-purple-400/10 blur-sm" />
-                </motion.div>
               </div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={showSubtitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                transition={{ duration: 0.75, ease: "easeOut", delay: 0.15 }}
-                className="mt-5 max-w-2xl text-sm sm:text-base leading-7 text-content-secondary"
+              {/* Subtitle */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={showSubtitle ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.15 }}
               >
-                Frontend Developer
-              </motion.p>
+                <div className="h-px w-12 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent mx-auto mb-4" />
+                <p className="text-sm tracking-[0.1em] uppercase text-content-secondary/80">
+                  Frontend Developer
+                </p>
+              </motion.div>
 
+              {/* Loading indicator */}
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={showSplit ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.2, ease: "easeInOut" }}
-                className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_0_50px_rgba(7,12,50,0.16)] backdrop-blur-xl"
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="mt-10 flex items-center justify-center gap-2"
               >
-                <div className="flex flex-col gap-3 text-content-secondary text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex h-2 w-2 rounded-full bg-cyan-400/80" />
-                    <span>Split-screen transition ready</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex h-2 w-2 rounded-full bg-violet-400/80" />
-                    <span>Fixed sidebar + content reveal</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex h-2 w-2 rounded-full bg-white/50" />
-                    <span>Quick cinematic launch</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ width: 0, opacity: 0 }}
-            animate={showSplit ? { width: ["0%", "60%"], opacity: [0, 1] } : { width: 0, opacity: 0 }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
-            className="hidden h-full min-h-screen shrink-0 overflow-hidden border-l border-white/10 bg-white/5 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.08),transparent_20%)] backdrop-blur-xl md:flex md:flex-col md:justify-center md:p-10"
-          >
-            <div className="relative z-10 space-y-6">
-              <div className="text-xs uppercase tracking-[0.35em] text-content-secondary/70">
-                LAUNCHING
-              </div>
-              <div className="space-y-4">
-                <p className="text-2xl font-bold text-white">
-                  Fixed sidebar is locking into place.
-                </p>
-                <p className="max-w-md text-sm leading-7 text-content-secondary">
-                  Smoothly transforming into a split-layout interface with futuristic glass panels and glowing navigation.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-3 text-[11px] uppercase tracking-[0.25em] text-content-secondary/70">
-                {['NAV', 'PROJECTS', 'SKILLS', 'CONTACT'].map((label) => (
-                  <div key={label} className="rounded-3xl border border-white/10 bg-white/10 px-3 py-2">
-                    {label}
-                  </div>
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1, 0.8] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                    className="w-1.5 h-1.5 rounded-full bg-cyan-400/70"
+                  />
                 ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );

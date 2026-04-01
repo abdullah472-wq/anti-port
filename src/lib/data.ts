@@ -238,5 +238,5 @@ export const CONTACT_INFO: ContactInfo = {
   whatsapp: PERSONAL_INFO.whatsapp,
   whatsappLink: PERSONAL_INFO.whatsappLink,
   location: PERSONAL_INFO.location,
-  address: "College Road, Kapasia-1730, Gazipur, Dhaka, Bangladesh",
+  address: " Gazipur, Dhaka, Bangladesh",
 };

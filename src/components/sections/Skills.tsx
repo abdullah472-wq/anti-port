@@ -85,8 +85,9 @@ const Skills = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* 3D Skill Visualization */}
+        {/* Skills Layout: Full width grid on smaller screens, 3D + grid on lg+ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] gap-8 lg:gap-12 items-start">
+            {/* 3D Skill Visualization - Hidden on smaller screens */}
             <div className="hidden lg:block h-[500px] w-full relative">
                  <div className="absolute inset-0 z-0">
                     <Canvas camera={{ position: [0, 0, 8] }}>
@@ -97,11 +98,13 @@ const Skills = () => {
                  </div>
             </div>
 
-            {/* Skills Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-fit">
-              {SKILLS.map((category, i) => (
-                <SkillCard key={category.id} category={category} />
-              ))}
+            {/* Skills Grid - Full width on mobile, spans full width when 3D is hidden */}
+            <div className="w-full lg:col-start-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {SKILLS.map((category, i) => (
+                  <SkillCard key={category.id} category={category} />
+                ))}
+              </div>
             </div>
         </div>
 

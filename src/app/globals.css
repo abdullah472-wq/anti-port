@@ -54,6 +54,11 @@
     0%, 100% { opacity: 0.5; }
     50% { opacity: 0.8; }
   }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-20deg); }
+    100% { transform: translateX(200%) skewX(-20deg); }
+  }
 }
 
 @layer base {
@@ -241,6 +246,10 @@
 
 .animate-gradient-shift {
   animation: gradient-shift 8s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 .animate-glow-pulse {
