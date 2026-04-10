@@ -6,6 +6,7 @@ import { Github, Facebook, MessageCircle, Send, Download, Zap, ChevronRight, Pho
 import { PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
+import { downloadCv } from "@/lib/downloadCv";
 
 export default function MobileHeader() {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -37,7 +38,7 @@ export default function MobileHeader() {
     if (isScrolling) {
       scrollIntervalRef.current = setInterval(() => {
         if (!isPausedRef.current) {
-          window.scrollBy(0, 1.5);
+          window.scrollBy(0, 5);
         }
       }, 16);
 
@@ -159,7 +160,7 @@ export default function MobileHeader() {
                 <span className="text-xs">Get a Design</span>
                 <ChevronRight className="w-3 h-3 ml-1" />
               </Button>
-              <Button variant="outline" size="sm" className="flex-1">
+              <Button variant="outline" size="sm" className="flex-1" onClick={downloadCv}>
                 <Download className="w-3 h-3 mr-1" />
                 <span className="text-xs">CV</span>
               </Button>

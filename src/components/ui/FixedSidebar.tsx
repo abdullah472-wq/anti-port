@@ -6,6 +6,7 @@ import { Github, Facebook, MessageCircle, Send, Phone, Download, Zap, ChevronRig
 import { PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
+import { downloadCv } from "@/lib/downloadCv";
 
 const NAV_ITEMS = [
   { name: "Home", href: "#home", id: "home" },
@@ -255,7 +256,7 @@ export default function FixedSidebar() {
                 <span>Get a Design</span>
                 <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button variant="outline" size="sm" className="flex-1">
+              <Button variant="outline" size="sm" className="flex-1" onClick={downloadCv}>
                 <Download className="w-4 h-4 mr-1" />
                 <span>Download CV</span>
               </Button>

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const INTRO_STORAGE_KEY = "portfolioIntroPlayed_v2";
 
@@ -13,11 +12,14 @@ interface IntroScreenProps {
 const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const [showIntro, setShowIntro] = useState(false);
   const [phase, setPhase] = useState(0);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [isMobile, setIsMobile] = useState(false);
 
   // Check localStorage and initialize
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    const mobileView = window.matchMedia("(max-width: 768px)").matches;
+    setIsMobile(mobileView);
 
     const played = window.localStorage.getItem(INTRO_STORAGE_KEY) === "true";
     if (played) {
@@ -33,12 +35,13 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
     timers.push(window.setTimeout(() => setPhase(2), 400));   // Show subtitle + scan line
     timers.push(window.setTimeout(() => setPhase(3), 800));   // Prepare split
     
-    if (!isMobile) {
+    if (!mobileView) {
       // Desktop: split screen transition
       timers.push(window.setTimeout(() => setPhase(4), 1200)); // Execute split
       timers.push(
         window.setTimeout(() => {
           window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+          window.dispatchEvent(new Event("intro:complete"));
           setShowIntro(false);
           onComplete?.();
         }, 2200)
@@ -48,6 +51,7 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
       timers.push(
         window.setTimeout(() => {
           window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+          window.dispatchEvent(new Event("intro:complete"));
           setShowIntro(false);
           onComplete?.();
         }, 2500)
@@ -55,11 +59,38 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
     }
 
     return () => timers.forEach(window.clearTimeout);
-  }, [isMobile, onComplete]);
+  }, [onComplete]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousBodyTouchAction = body.style.touchAction;
+
+    if (showIntro) {
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+      body.style.touchAction = "none";
+    } else {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.touchAction = previousBodyTouchAction;
+    }
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+      body.style.touchAction = previousBodyTouchAction;
+    };
+  }, [showIntro]);
 
   const skipIntro = useCallback(() => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+      window.dispatchEvent(new Event("intro:complete"));
     }
     setShowIntro(false);
     onComplete?.();

@@ -14,7 +14,7 @@ export default function AutoScrollToggle() {
   const isPausedRef = useRef(false); // Ref for animation loop
   const isRunningRef = useRef(false); // Track if scroll is running
   
-  const scrollSpeed = 4.5; // pixels per frame at 60fps - increased for faster scrolling
+  const scrollSpeed = 10; // pixels per frame at 60fps - increased for faster scrolling
 
   // Sync state to ref
   useEffect(() => {

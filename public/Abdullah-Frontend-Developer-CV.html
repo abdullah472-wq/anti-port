@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abdullah - Frontend Developer CV</title>
+    <style>
+      :root {
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --line: #e5e7eb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--text);
+        background: #f8fafc;
+        line-height: 1.45;
+      }
+      .page {
+        max-width: 900px;
+        margin: 24px auto;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .header {
+        padding: 28px 32px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      h1 {
+        margin: 0;
+        font-size: 32px;
+        letter-spacing: 0.5px;
+      }
+      .role {
+        margin: 6px 0 0;
+        font-size: 16px;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .meta {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .meta span {
+        margin-right: 16px;
+        display: inline-block;
+      }
+      .content {
+        padding: 24px 32px 32px;
+      }
+      h2 {
+        margin: 20px 0 8px;
+        font-size: 16px;
+        color: #0f172a;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+      p {
+        margin: 0 0 8px;
+      }
+      ul {
+        margin: 6px 0 0;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 4px;
+      }
+      .job {
+        margin-top: 10px;
+      }
+      .job-title {
+        font-weight: 700;
+      }
+      .job-period {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      @media (max-width: 700px) {
+        .page {
+          margin: 0;
+          border-radius: 0;
+          border-left: 0;
+          border-right: 0;
+        }
+        .header,
+        .content {
+          padding: 20px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          border: 0;
+          border-radius: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <h1>Abdullah</h1>
+        <p class="role">Frontend Developer (React, Next.js, TypeScript)</p>
+        <div class="meta">
+          <span>Gazipur, Dhaka, Bangladesh</span>
+          <span>Phone: +8801581818368</span>
+          <span>GitHub: github.com/abdullah472-wq</span>
+          <span>LinkedIn: linkedin.com/in/abdullah</span>
+        </div>
+      </header>
+
+      <section class="content">
+        <h2>Professional Summary</h2>
+        <p>
+          Frontend Developer with 3+ years of experience building fast,
+          responsive, and accessible web applications. Specialized in React and
+          Next.js with strong focus on clean UI architecture, animation systems,
+          and performance optimization.
+        </p>
+
+        <div class="grid">
+          <div>
+            <h2>Core Skills</h2>
+            <ul>
+              <li>React, Next.js, TypeScript, JavaScript</li>
+              <li>Tailwind CSS, Framer Motion, GSAP</li>
+              <li>Responsive UI, design-to-code implementation</li>
+              <li>Accessibility (WCAG), semantic HTML</li>
+              <li>Core Web Vitals and Lighthouse optimization</li>
+              <li>Git/GitHub, API integration</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Languages</h2>
+            <ul>
+              <li>Bangla (Native)</li>
+              <li>English (Professional)</li>
+            </ul>
+
+            <h2>Availability</h2>
+            <ul>
+              <li>Open to remote frontend projects</li>
+              <li>Freelance and contract opportunities</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Experience</h2>
+        <div class="job">
+          <div class="job-title">Senior Frontend Developer</div>
+          <div class="job-period">2024 - Present</div>
+          <ul>
+            <li>Lead frontend delivery for portfolio and client web projects.</li>
+            <li>
+              Build scalable component systems for consistency and faster
+              development.
+            </li>
+            <li>
+              Improve performance with lazy loading, asset optimization, and
+              render strategy tuning.
+            </li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-title">Frontend Developer</div>
+          <div class="job-period">2022 - 2023</div>
+          <ul>
+            <li>
+              Developed production-ready interfaces with React and Next.js.
+            </li>
+            <li>
+              Converted Figma/UI designs into responsive, pixel-accurate
+              components.
+            </li>
+            <li>
+              Improved UX with micro-interactions and accessibility-first
+              implementation.
+            </li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-title">Junior Web Developer</div>
+          <div class="job-period">2021 - 2022</div>
+          <ul>
+            <li>
+              Started with HTML, CSS, and JavaScript fundamentals and shipped
+              static to dynamic web pages.
+            </li>
+            <li>
+              Built reusable UI blocks and handled cross-browser consistency.
+            </li>
+          </ul>
+        </div>
+
+        <h2>Selected Project Highlights</h2>
+        <ul>
+          <li>Modern SaaS Dashboard - Next.js, Tailwind, Framer Motion</li>
+          <li>Frontend Fintech Portal - React, TypeScript, GSAP</li>
+          <li>
+            Portfolio Website - performance-focused, responsive, and accessible
+            frontend
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

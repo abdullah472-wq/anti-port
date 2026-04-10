@@ -2,12 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import dynamic from "next/dynamic";
 import { SKILLS } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { Canvas } from "@react-three/fiber";
-
-const SkillBubbles = dynamic(() => import("@/components/3d/SkillBubbles"), { ssr: false });
 
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/ui/FadeInStagger";
 
@@ -85,27 +81,11 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Skills Layout: Full width grid on smaller screens, 3D + grid on lg+ */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] gap-8 lg:gap-12 items-start">
-            {/* 3D Skill Visualization - Hidden on smaller screens */}
-            <div className="hidden lg:block h-[500px] w-full relative">
-                 <div className="absolute inset-0 z-0">
-                    <Canvas camera={{ position: [0, 0, 8] }}>
-                      <ambientLight intensity={0.5} />
-                      <pointLight position={[10, 10, 10]} />
-                      <SkillBubbles />
-                    </Canvas>
-                 </div>
-            </div>
-
-            {/* Skills Grid - Full width on mobile, spans full width when 3D is hidden */}
-            <div className="w-full lg:col-start-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {SKILLS.map((category, i) => (
-                  <SkillCard key={category.id} category={category} />
-                ))}
-              </div>
-            </div>
+        {/* Skills Grid - Full width so no empty left area */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {SKILLS.map((category) => (
+            <SkillCard key={category.id} category={category} />
+          ))}
         </div>
 
         {/* Floating background blur */}
