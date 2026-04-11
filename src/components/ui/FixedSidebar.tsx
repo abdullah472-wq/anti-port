@@ -7,6 +7,7 @@ import { PERSONAL_INFO } from "@/lib/data";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { downloadCv } from "@/lib/downloadCv";
+import { scrollToSectionById } from "@/lib/scrollToSection";
 
 const NAV_ITEMS = [
   { name: "Home", href: "#home", id: "home" },
@@ -79,10 +80,7 @@ export default function FixedSidebar() {
   }, [isScrolling]);
 
   const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.replace("#", ""));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSectionById(href.replace("#", ""));
   };
 
   const toggleAutoScroll = () => {

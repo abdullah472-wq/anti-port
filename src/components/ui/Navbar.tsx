@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Code2, Menu, X, Search } from "lucide-react";
 import { NAV_ITEMS, PERSONAL_INFO } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { scrollToSectionById } from "@/lib/scrollToSection";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSegment, setActiveSegment] = useState("Home");
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   
   const { scrollY } = useScroll();
 
@@ -32,6 +36,26 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleNavClick = (href: string, itemName: string, e?: MouseEvent) => {
+    const hashMatch = href.match(/#(.+)$/);
+    if (!hashMatch) {
+      setActiveSegment(itemName);
+      return;
+    }
+
+    const sectionId = hashMatch[1];
+
+    if (pathname === "/") {
+      e?.preventDefault();
+      setActiveSegment(itemName);
+      scrollToSectionById(sectionId);
+      return;
+    }
+
+    e?.preventDefault();
+    router.push(`/#${sectionId}`);
+  };
 
   return (
     <nav
@@ -67,7 +91,7 @@ const Navbar = () => {
                   "text-sm font-medium transition-colors hover:text-primary relative py-2 px-4",
                   activeSegment === item.name ? "text-primary" : "text-content-secondary"
                 )}
-                onClick={() => setActiveSegment(item.name)}
+                onClick={(e) => handleNavClick(item.href, item.name, e)}
               >
                 {item.name}
                 {activeSegment === item.name && (
@@ -127,12 +151,22 @@ const Navbar = () => {
                   key={item.href}
                   href={item.href}
                   className="text-lg font-medium text-content-secondary hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    handleNavClick(item.href, item.name, e);
+                    setIsMenuOpen(false);
+                  }}
                 >
                   {item.name}
                 </Link>
               ))}
-              <Link href="#contact" className="btn-gradient text-center mt-4" onClick={() => setIsMenuOpen(false)}>
+              <Link
+                href="#contact"
+                className="btn-gradient text-center mt-4"
+                onClick={(e) => {
+                  handleNavClick("#contact", "Contact", e);
+                  setIsMenuOpen(false);
+                }}
+              >
                 Hire Me
               </Link>
             </div>

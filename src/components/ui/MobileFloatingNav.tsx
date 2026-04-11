@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { scrollToSectionById } from "@/lib/scrollToSection";
 
 const NAV_ITEMS = [
   { id: "home", name: "Home", label: "Home" },
@@ -43,10 +44,7 @@ export default function MobileFloatingNav() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSectionById(id);
     setIsExpanded(false);
   };
 

@@ -40,7 +40,7 @@ const jsonLd = {
   "@type": "Person",
   "name": "Abdullah",
   "jobTitle": "Frontend Developer",
-  "url": "https://abdullah.dev",
+  "url": "https://codbot.pro.bd",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Gazipur",
