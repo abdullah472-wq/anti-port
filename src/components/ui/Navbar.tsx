@@ -69,14 +69,16 @@ const Navbar = () => {
         <MagneticButton distance={0.2}>
           <Link href="/" className="flex items-center gap-2 md:gap-4 group">
             <img 
-              src="/COD_BOT.png" 
+              src="/COD_BOT.webp" 
               alt="Logo" 
               className="w-10 h-10 md:w-16 md:h-16 object-contain"
             />
             <img 
-              src="/animation/COD_BOT.gif" 
+              src="/COD_BOT.webp" 
               alt="COD_BOT" 
               className="h-8 md:h-12 object-contain"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
         </MagneticButton>

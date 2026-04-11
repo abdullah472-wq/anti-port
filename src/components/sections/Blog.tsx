@@ -22,6 +22,8 @@ const BlogCard = ({ post, index }: { post: any, index: number }) => {
         <img
           src={post.image}
           alt={post.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 text-[10px] font-bold text-primary uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all">

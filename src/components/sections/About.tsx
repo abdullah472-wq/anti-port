@@ -84,8 +84,10 @@ const About = () => {
             <div className="aspect-square rounded-3xl overflow-hidden glass border-2 border-primary/20 p-4 relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-50 group-hover:opacity-100 transition-opacity" />
               <img 
-                src="/avatar-placeholder.png" 
+                src="/avatar-placeholder.webp" 
                 alt="Abdullah" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover rounded-2xl relative z-10 transition-transform duration-500 group-hover:scale-110"
               />
             </div>

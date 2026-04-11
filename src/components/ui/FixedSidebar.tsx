@@ -145,16 +145,18 @@ export default function FixedSidebar() {
                 className="relative"
               >
                 <img
-                  src="/COD_BOT.png"
+                  src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="w-12 h-12 rounded-xl"
                 />
               </motion.div>
               <span className="font-heading text-lg font-bold tracking-wide">
                 <img
-                  src="animation/COD_BOT.gif"
+                  src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="h-12 w-auto"
+                  loading="lazy"
+                  decoding="async"
                 />
               </span>
             </div>

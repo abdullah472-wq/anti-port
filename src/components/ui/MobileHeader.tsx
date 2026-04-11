@@ -94,14 +94,16 @@ export default function MobileHeader() {
               {/* Logo + Name */}
               <div className="flex items-center gap-3">
                 <img
-                  src="/COD_BOT.png"
+                  src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="w-10 h-10 rounded-xl"
                 />
                 <img
-                  src="animation/COD_BOT.gif"
+                  src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="h-6 w-auto"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 

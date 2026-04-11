@@ -8,8 +8,6 @@ import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-
-import Tilt from "react-parallax-tilt";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/ui/FadeInStagger";
 
 const ProjectCard = ({ project, index }: { project: any, index: number }) => {
@@ -25,17 +23,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className="h-full"
     >
-      <Tilt
-        tiltMaxAngleX={10}
-        tiltMaxAngleY={10}
-        scale={1.05}
-        glareEnable={true}
-        glareMaxOpacity={0.3}
-        glareColor="#ffffff"
-        glarePosition="bottom"
-        glareBorderRadius="1.5rem"
-        className="glass rounded-3xl overflow-hidden border border-white/10 group shadow-2xl relative h-full flex flex-col"
-      >
+      <div className="glass rounded-3xl overflow-hidden border border-white/10 group shadow-2xl relative h-full flex flex-col">
         {/* Project Image */}
         <div className="relative aspect-video overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
@@ -104,7 +92,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
           {/* Action Buttons */}
           <div className="flex items-center gap-3 pt-2">
             {project.liveUrl && (
-              <Link href={project.liveUrl} className="flex-1">
+              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
                 <Button size="sm" className="w-full" glow>
                    Live Demo <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
@@ -122,7 +110,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
           {/* Hover Glow */}
           <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-primary/20 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
         </div>
-      </Tilt>
+      </div>
     </motion.div>
   );
 };

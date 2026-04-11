@@ -2,15 +2,11 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { Orbitron, Exo_2 } from "next/font/google";
 import "./globals.css";
-import ScrollProgress from "@/components/ui/ScrollProgress";
-import CommandPalette from "@/components/ui/CommandPalette";
-import MagneticCursor from "@/components/ui/MagneticCursor";
 import FixedSidebar from "@/components/ui/FixedSidebar";
 import MobileFloatingNav from "@/components/ui/MobileFloatingNav";
 import MobileHeader from "@/components/ui/MobileHeader";
-import SmoothScroll from "@/components/ui/SmoothScroll";
 import IntroScreen from "@/components/ui/IntroScreen";
-import BackToTop from "@/components/ui/BackToTop";
+import ClientEnhancements from "@/components/ui/ClientEnhancements";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -71,10 +67,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className={`${orbitron.variable} ${exo2.variable} ${jetbrainsMono.variable} font-body scroll-smooth grid-bg`}>
         <IntroScreen />
-        <SmoothScroll />
-        <ScrollProgress />
-        <MagneticCursor />
-        <CommandPalette />
+        <ClientEnhancements />
         
         {/* Split Layout */}
         <div className="flex min-h-screen">
@@ -93,8 +86,6 @@ export default function RootLayout({
         {/* Mobile Header */}
         <MobileHeader />
         
-        {/* Back to Top Button */}
-        <BackToTop />
       </body>
     </html>
   );
