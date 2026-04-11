@@ -1,0 +1,82 @@
+[
+  {
+    "id": "p1",
+    "title": "E-commerce Landing Page",
+    "description": "A full-featured shopping app with real-time updates and highly accessible UI components.",
+    "image": "/projects/p1.webp",
+    "category": "Full Stack",
+    "tech": ["React", "GSAP", "TypeScript"],
+    "featured": true,
+    "githubUrl": "https://github.com/abdullah472-wq/landing-page-creator",
+    "liveUrl": "https://jheenat.odditybd.shop/",
+    "lighthouseScore": 96,
+    "loadTime": "1.4s",
+    "mobileResponsive": true
+  },
+  {
+    "id": "p2",
+    "title": "Modern SaaS Dashboard",
+    "description": "Collaborative project management tool featuring high-performance dynamic routing and accessible charts.",
+    "image": "/projects/p2.webp",
+    "category": "Web",
+    "tech": ["Next.js", "Framer Motion", "Tailwind", "Radix UI"],
+    "featured": true,
+    "githubUrl": "https://github.com/abdullah472-wq/oasis-hub",
+    "liveUrl": "https://annoor.odditybd.shop/admin/dashboard",
+    "lighthouseScore": 98,
+    "loadTime": "0.8s",
+    "mobileResponsive": true
+  },
+  {
+    "id": "p3",
+    "title": "Annoor Education Family Website & Admin Portal",
+    "description": "A full-featured school and madrasa website with public content pages, online admission flow, Ramadan campaign pages, and a role-based admin dashboard powered by Firebase Auth and Firestore.",
+    "image": "/projects/p3.webp",
+    "category": "Web",
+    "tech": ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Firebase"],
+    "githubUrl": "https://github.com/abdullah472-wq/oasis-hub",
+    "liveUrl": "https://annoor.odditybd.shop/",
+    "lighthouseScore": 95,
+    "loadTime": "1.2s",
+    "mobileResponsive": true
+  },
+  {
+    "id": "p4",
+    "title": "Weather App",
+    "description": "Dynamic weather forecasting application with micro-animations and offline support.",
+    "image": "/projects/p4.webp",
+    "category": "Mobile",
+    "tech": ["Flutter", "Riverpod", "OpenWeather API"],
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "lighthouseScore": 100,
+    "loadTime": "0.9s",
+    "mobileResponsive": true
+  },
+  {
+    "id": "p5",
+    "title": "Portfolio Website",
+    "description": "Modern 3D portfolio with immersive graphics, smooth animations, and top-tier core web vitals.",
+    "image": "/projects/p5.webp",
+    "category": "Web",
+    "tech": ["Next.js", "Three.js", "Framer Motion"],
+    "githubUrl": "https://github.com/abdullah472-wq/anti-port",
+    "liveUrl": "https://codbot.pro.bd/",
+    "lighthouseScore": 100,
+    "loadTime": "0.6s",
+    "mobileResponsive": true
+  },
+  {
+    "id": "p6",
+    "title": "Real-time Collaboration Canvas",
+    "description": "Highly interactive frontend canvas with optimistic UI updates and accessibility controls.",
+    "image": "/projects/p6.webp",
+    "category": "Web",
+    "tech": ["React", "Zustand", "Socket.io", "A11y"],
+    "githubUrl": "#",
+    "liveUrl": "#",
+    "lighthouseScore": 94,
+    "loadTime": "1.5s",
+    "mobileResponsive": true
+  }
+]

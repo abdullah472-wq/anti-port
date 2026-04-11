@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
-import { BLOG_POSTS } from "@/lib/data";
+import { useBlogPostsData } from "@/hooks/useContentData";
 import Button from "@/components/ui/Button";
 
 const BlogCard = ({ post, index }: { post: any, index: number }) => {
@@ -74,6 +74,8 @@ const BlogCard = ({ post, index }: { post: any, index: number }) => {
 };
 
 const Blog = () => {
+  const { posts } = useBlogPostsData();
+
   return (
     <section id="blog" className="py-24 px-6 relative overflow-hidden bg-dark-bg/50">
       <div className="max-w-7xl mx-auto">
@@ -100,7 +102,7 @@ const Blog = () => {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {BLOG_POSTS.slice(0, 3).map((post, i) => (
+          {posts.slice(0, 3).map((post, i) => (
             <BlogCard key={post.id} post={post} index={i} />
           ))}
         </div>

@@ -4,17 +4,18 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Calendar, Clock, ArrowRight, User, Filter } from "lucide-react";
 import Link from "next/link";
-import { BLOG_POSTS } from "@/lib/data";
+import { useBlogPostsData } from "@/hooks/useContentData";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const BlogListing = () => {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const { posts } = useBlogPostsData();
 
-  const categories = ["All", ...Array.from(new Set(BLOG_POSTS.map((p) => p.category)))];
+  const categories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
 
-  const filteredPosts = BLOG_POSTS.filter((post) => {
+  const filteredPosts = posts.filter((post) => {
     const matchesQuery = post.title.toLowerCase().includes(query.toLowerCase()) || 
                          post.excerpt.toLowerCase().includes(query.toLowerCase());
     const matchesCategory = activeCategory === "All" || post.category === activeCategory;

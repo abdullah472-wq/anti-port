@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Code2, Smartphone, Layers, ArrowRight } from "lucide-react";
-import { PROJECTS } from "@/lib/data";
+import { useProjectsData } from "@/hooks/useContentData";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -117,9 +117,10 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
 
 const Projects = () => {
   const [filter, setFilter] = useState("All");
+  const { projects } = useProjectsData();
   const categories = ["All", "Web", "Mobile", "Full Stack"];
 
-  const filteredProjects = PROJECTS.filter(
+  const filteredProjects = projects.filter(
     (p) => filter === "All" || p.category === filter
   );
 

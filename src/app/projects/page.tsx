@@ -4,16 +4,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, ExternalLink, Github, Code2, Smartphone, Layers, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { PROJECTS } from "@/lib/data";
+import { useProjectsData } from "@/hooks/useContentData";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const ProjectsPage = () => {
     const [filter, setFilter] = useState("All");
     const [query, setQuery] = useState("");
+    const { projects } = useProjectsData();
     const categories = ["All", "Web", "Mobile", "Full Stack"];
 
-    const filteredProjects = PROJECTS.filter((p) => {
+    const filteredProjects = projects.filter((p) => {
         const matchesCategory = filter === "All" || p.category === filter;
         const matchesQuery = p.title.toLowerCase().includes(query.toLowerCase()) || 
                              p.description.toLowerCase().includes(query.toLowerCase());

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "b1",
+    "slug": "getting-started-with-nextjs-14",
+    "title": "Getting Started with Next.js 14",
+    "excerpt": "Learn how to use the App Router and server components in the latest version of Next.js.",
+    "date": "March 15, 2024",
+    "readingTime": "5 min read",
+    "category": "Web Development",
+    "image": "/blog/b1.webp",
+    "content": "A practical introduction to modern Next.js workflows and structure."
+  },
+  {
+    "id": "b2",
+    "slug": "building-beautiful-uis-with-flutter",
+    "title": "Building Beautiful UIs with Flutter",
+    "excerpt": "Explore advanced widget techniques for creating stunning mobile interfaces.",
+    "date": "March 10, 2024",
+    "readingTime": "7 min read",
+    "category": "Mobile Dev",
+    "image": "/blog/b2.webp",
+    "content": "A design-focused guide to composing polished and high-performance Flutter screens."
+  },
+  {
+    "id": "b3",
+    "slug": "rest-api-best-practices",
+    "title": "REST API Best Practices",
+    "excerpt": "Designing scalable, maintainable, and secure APIs for modern applications.",
+    "date": "March 5, 2024",
+    "readingTime": "6 min read",
+    "category": "Backend",
+    "image": "/blog/b3.webp",
+    "content": "Key API design decisions that improve stability, usability, and long-term maintainability."
+  }
+]

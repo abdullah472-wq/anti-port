@@ -5,13 +5,15 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { Calendar, Clock, ArrowLeft, User, Share2, Twitter, Linkedin, Facebook, Link as LinkIcon, ChevronRight, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { BLOG_POSTS, PERSONAL_INFO } from "@/lib/data";
+import { PERSONAL_INFO } from "@/lib/data";
+import { useBlogPostsData } from "@/hooks/useContentData";
 import Button from "@/components/ui/Button";
 
 const BlogPostDetail = () => {
   const params = useParams();
   const slug = params.slug as string;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const { posts, loading } = useBlogPostsData();
+  const post = posts.find((p) => p.slug === slug);
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -19,6 +21,14 @@ const BlogPostDetail = () => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        <div className="text-content-secondary">Loading article...</div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -172,7 +182,7 @@ const BlogPostDetail = () => {
           {/* Author Card */}
           <div className="glass p-8 rounded-3xl border border-white/10 flex flex-col items-center text-center gap-4 sticky top-32">
              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-secondary p-1">
-                <img src="/avatar-placeholder.jpg" alt="Abdullah" className="w-full h-full object-cover rounded-full border-2 border-background" />
+                <img src="/avatar-placeholder.webp" alt="Abdullah" className="w-full h-full object-cover rounded-full border-2 border-background" />
              </div>
              <div>
                 <h4 className="font-bold text-white uppercase tracking-tighter uppercase">{PERSONAL_INFO.name}</h4>
