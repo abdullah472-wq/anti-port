@@ -11,6 +11,7 @@ export default function HomeSections() {
       <LazySection id="skills" importSection={() => import("@/components/sections/Skills")} />
       <LazySection id="journey" importSection={() => import("@/components/sections/JourneyStack")} />
       <LazySection id="projects" importSection={() => import("@/components/sections/Projects")} />
+      <LazySection id="blog" importSection={() => import("@/components/sections/Blog")} />
       <LazySection id="contact" importSection={() => import("@/components/sections/Contact")} />
     </div>
   );
