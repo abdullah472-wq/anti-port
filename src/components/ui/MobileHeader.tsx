@@ -97,6 +97,9 @@ export default function MobileHeader() {
                   src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="w-10 h-10 rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
                 <img
                   src="/animation/codbot.gif"
@@ -104,6 +107,7 @@ export default function MobileHeader() {
                   className="h-6 w-auto"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
               </div>
 

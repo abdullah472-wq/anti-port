@@ -5,7 +5,6 @@ import "./globals.css";
 import FixedSidebar from "@/components/ui/FixedSidebar";
 import MobileFloatingNav from "@/components/ui/MobileFloatingNav";
 import MobileHeader from "@/components/ui/MobileHeader";
-import IntroScreen from "@/components/ui/IntroScreen";
 import ClientEnhancements from "@/components/ui/ClientEnhancements";
 
 const orbitron = Orbitron({
@@ -66,7 +65,6 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className={`${orbitron.variable} ${exo2.variable} ${jetbrainsMono.variable} font-body scroll-smooth grid-bg`}>
-        <IntroScreen />
         <ClientEnhancements />
         
         {/* Split Layout */}

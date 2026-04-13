@@ -6,6 +6,8 @@ import type { BlogPost, Project } from "@/types";
 
 const PROJECTS_DATA_URL = process.env.NEXT_PUBLIC_PROJECTS_DATA_URL || "/content/projects.json";
 const BLOGS_DATA_URL = process.env.NEXT_PUBLIC_BLOGS_DATA_URL || "/content/blogs.json";
+let projectsCache: Project[] | null = null;
+let blogsCache: BlogPost[] | null = null;
 
 function toBool(value: unknown): boolean {
   if (typeof value === "boolean") return value;
@@ -63,7 +65,7 @@ function normalizeBlog(item: any): BlogPost {
 }
 
 async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url, { cache: "force-cache" });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
@@ -71,17 +73,28 @@ async function fetchJson<T>(url: string): Promise<T> {
 }
 
 export function useProjectsData() {
-  const [projects, setProjects] = useState<Project[]>(PROJECTS);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState<Project[]>(projectsCache ?? PROJECTS);
+  const [loading, setLoading] = useState(projectsCache === null);
 
   useEffect(() => {
     let active = true;
+
+    if (projectsCache) {
+      setProjects(projectsCache);
+      setLoading(false);
+      return () => {
+        active = false;
+      };
+    }
 
     fetchJson<any[]>(PROJECTS_DATA_URL)
       .then((rows) => {
         if (!active || !Array.isArray(rows)) return;
         const normalized = rows.map(normalizeProject).filter((p) => p.id && p.title);
-        if (normalized.length > 0) setProjects(normalized);
+        if (normalized.length > 0) {
+          projectsCache = normalized;
+          setProjects(normalized);
+        }
       })
       .catch(() => {
         // Fallback to local static data if remote data is unavailable.
@@ -99,17 +112,28 @@ export function useProjectsData() {
 }
 
 export function useBlogPostsData() {
-  const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<BlogPost[]>(blogsCache ?? BLOG_POSTS);
+  const [loading, setLoading] = useState(blogsCache === null);
 
   useEffect(() => {
     let active = true;
+
+    if (blogsCache) {
+      setPosts(blogsCache);
+      setLoading(false);
+      return () => {
+        active = false;
+      };
+    }
 
     fetchJson<any[]>(BLOGS_DATA_URL)
       .then((rows) => {
         if (!active || !Array.isArray(rows)) return;
         const normalized = rows.map(normalizeBlog).filter((p) => p.id && p.slug && p.title);
-        if (normalized.length > 0) setPosts(normalized);
+        if (normalized.length > 0) {
+          blogsCache = normalized;
+          setPosts(normalized);
+        }
       })
       .catch(() => {
         // Fallback to local static data if remote data is unavailable.

@@ -148,6 +148,9 @@ export default function FixedSidebar() {
                   src="/COD_BOT.webp"
                   alt="COD BOT"
                   className="w-12 h-12 rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
               </motion.div>
               <span className="font-heading text-lg font-bold tracking-wide">
@@ -157,6 +160,7 @@ export default function FixedSidebar() {
                   className="h-12 w-auto"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
               </span>
             </div>

@@ -79,6 +79,7 @@ const Navbar = () => {
               className="h-8 md:h-12 object-contain"
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
             />
           </Link>
         </MagneticButton>
