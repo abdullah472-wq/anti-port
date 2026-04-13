@@ -74,7 +74,7 @@ const Navbar = () => {
               className="w-10 h-10 md:w-16 md:h-16 object-contain"
             />
             <img 
-              src="/COD_BOT.webp" 
+              src="/animation/codbot.gif" 
               alt="COD_BOT" 
               className="h-8 md:h-12 object-contain"
               loading="lazy"

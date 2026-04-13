@@ -99,7 +99,7 @@ export default function MobileHeader() {
                   className="w-10 h-10 rounded-xl"
                 />
                 <img
-                  src="/COD_BOT.webp"
+                  src="/animation/codbot.gif"
                   alt="COD BOT"
                   className="h-6 w-auto"
                   loading="lazy"
